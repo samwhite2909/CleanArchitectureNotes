@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CleanArchitectureNotes</string>
+    <string name="title_radio_button">Title</string>
+    <string name="color_radio_button">Color</string>
+    <string name="date_radio_button">Date</string>
+    <string name="ascending_radio_button">Ascending</string>
+    <string name="descending_radio_button">Descending</string>
 </resources>
