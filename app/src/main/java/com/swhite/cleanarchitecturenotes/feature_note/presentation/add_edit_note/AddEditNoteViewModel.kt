@@ -59,7 +59,7 @@ class AddEditNoteViewModel @Inject constructor(
             }
         }
     }
-    
+
     fun onEvent(event: AddEditNoteEvent) {
         when(event) {
             is AddEditNoteEvent.EnteredTitle -> {
