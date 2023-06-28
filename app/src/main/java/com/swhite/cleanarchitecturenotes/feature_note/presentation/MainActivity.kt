@@ -3,13 +3,8 @@ package com.swhite.cleanarchitecturenotes.feature_note.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,6 +16,7 @@ import com.swhite.cleanarchitecturenotes.feature_note.presentation.util.Screen
 import com.swhite.cleanarchitecturenotes.ui.theme.CleanArchitectureNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+//Main activity/entry point.
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +26,18 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colors.background
                 ) {
+                    //Setting up basic navigation.
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
                         startDestination = Screen.NotesScreen.route
+                    //Creating a nav option for the notes screen.
                     ) {
                         composable(route = Screen.NotesScreen.route) {
                             NotesScreen(navController = navController)
                         }
+                        //Creating a nav option for the add edit notes screen, which allows for id
+                        // and color to be passed as meta data using the route.
                         composable(
                             route = Screen.AddEditNoteScreen.route +
                                     "?noteId={noteId}&noteColor={noteColor}",
@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
                                 },
                             )
                         ) {
+                            //Get the color from the nav arguments.
                             val color = it.arguments?.getInt("noteColor") ?: -1
                             AddEditNoteScreen(
                                 navController = navController,

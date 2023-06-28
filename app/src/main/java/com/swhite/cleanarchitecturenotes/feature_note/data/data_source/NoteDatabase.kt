@@ -4,11 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.swhite.cleanarchitecturenotes.feature_note.domain.model.Note
 
+//Room db setup for storing notes.
 @Database(
     entities = [Note::class],
     version = 1
 )
-abstract class NoteDatabase: RoomDatabase() {
+abstract class NoteDatabase : RoomDatabase() {
     abstract val noteDao: NoteDao
 
     companion object {

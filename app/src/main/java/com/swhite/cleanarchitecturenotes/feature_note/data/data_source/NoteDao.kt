@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.swhite.cleanarchitecturenotes.feature_note.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
+//Dao for basic note db operations.
 @Dao
 interface NoteDao {
 

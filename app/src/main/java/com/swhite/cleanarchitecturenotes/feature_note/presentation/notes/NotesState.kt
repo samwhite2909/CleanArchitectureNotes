@@ -4,6 +4,7 @@ import com.swhite.cleanarchitecturenotes.feature_note.domain.model.Note
 import com.swhite.cleanarchitecturenotes.feature_note.domain.util.NoteOrder
 import com.swhite.cleanarchitecturenotes.feature_note.domain.util.OrderType
 
+//Saved states for the notes screen filtering.
 data class NotesState(
     val notes: List<Note> = emptyList(),
     val noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending),

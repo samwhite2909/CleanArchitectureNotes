@@ -9,6 +9,7 @@ import com.swhite.cleanarchitecturenotes.R
 import com.swhite.cleanarchitecturenotes.feature_note.domain.util.NoteOrder
 import com.swhite.cleanarchitecturenotes.feature_note.domain.util.OrderType
 
+//Filter options selection composable.
 @Composable
 fun OrderSection(
     modifier: Modifier = Modifier,
@@ -21,8 +22,9 @@ fun OrderSection(
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
+            //Adding in the different radio button options.
             DefaultRadioButton(
-                text = stringResource(R.string.title_radio_button) ,
+                text = stringResource(R.string.title_radio_button),
                 selected = noteOrder is NoteOrder.Title,
                 onSelect = { onOrderChange(NoteOrder.Title(noteOrder.orderType)) }
             )
@@ -30,7 +32,7 @@ fun OrderSection(
                 modifier = Modifier.width(8.dp)
             )
             DefaultRadioButton(
-                text = stringResource(R.string.date_radio_button) ,
+                text = stringResource(R.string.date_radio_button),
                 selected = noteOrder is NoteOrder.Date,
                 onSelect = { onOrderChange(NoteOrder.Date(noteOrder.orderType)) }
             )
@@ -38,7 +40,7 @@ fun OrderSection(
                 modifier = Modifier.width(8.dp)
             )
             DefaultRadioButton(
-                text = stringResource(R.string.color_radio_button) ,
+                text = stringResource(R.string.color_radio_button),
                 selected = noteOrder is NoteOrder.Color,
                 onSelect = { onOrderChange(NoteOrder.Color(noteOrder.orderType)) }
             )
@@ -50,7 +52,7 @@ fun OrderSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(
-                text = stringResource(R.string.ascending_radio_button) ,
+                text = stringResource(R.string.ascending_radio_button),
                 selected = noteOrder.orderType is OrderType.Ascending,
                 onSelect = { onOrderChange(noteOrder.copy(OrderType.Ascending)) }
             )
@@ -58,7 +60,7 @@ fun OrderSection(
                 modifier = Modifier.width(8.dp)
             )
             DefaultRadioButton(
-                text = stringResource(R.string.descending_radio_button) ,
+                text = stringResource(R.string.descending_radio_button),
                 selected = noteOrder.orderType is OrderType.Descending,
                 onSelect = { onOrderChange(noteOrder.copy(OrderType.Descending)) }
             )

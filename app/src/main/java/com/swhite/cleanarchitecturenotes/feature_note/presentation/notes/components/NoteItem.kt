@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.swhite.cleanarchitecturenotes.feature_note.domain.model.Note
 
+//Note on the notes screen composable.
 @Composable
 fun NoteItem(
     note: Note,
@@ -37,6 +38,7 @@ fun NoteItem(
         Canvas(
             modifier = Modifier.matchParentSize()
         ) {
+            //Drawing the note.
             val clipPath = Path().apply {
                 lineTo(size.width - cutCornerSize.toPx(), 0f)
                 lineTo(size.width, cutCornerSize.toPx())
@@ -45,12 +47,14 @@ fun NoteItem(
                 close()
             }
 
+            //Add the note path values to the note path.
             clipPath(clipPath) {
                 drawRoundRect(
                     color = Color(note.color),
                     size = size,
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
+                //Drawing the rest of the note.
                 drawRoundRect(
                     color = Color(
                         ColorUtils.blendARGB(
@@ -71,10 +75,12 @@ fun NoteItem(
                 )
             }
         }
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .padding(end = 32.dp)
+        //Title and content body of the note inside of the note.
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .padding(end = 32.dp)
         ) {
             Text(
                 text = note.title,
@@ -92,6 +98,7 @@ fun NoteItem(
                 overflow = TextOverflow.Ellipsis
             )
         }
+        //Delete note icon.
         IconButton(
             onClick = onDeleteNote,
             modifier = Modifier.align(Alignment.BottomEnd)

@@ -28,6 +28,7 @@ import com.swhite.cleanarchitecturenotes.feature_note.presentation.add_edit_note
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+//Add edit notes screen.
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun AddEditNoteScreen(
@@ -35,36 +36,43 @@ fun AddEditNoteScreen(
     noteColor: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
+    //Get the title and content of the note from view model.
     val noteTitle = viewModel.noteTitle.value
     val noteContent = viewModel.noteContent.value
 
     //Used to show snackbars.
     var scaffoldState = rememberScaffoldState()
 
+    //Set the background color to the color of the note if existing note,
+    // use the logic for getting color from the view model.
     val noteBackgroundAnimatable = remember {
         Animatable(
             Color(if (noteColor != -1) noteColor else viewModel.noteColor.value)
         )
     }
+
     val scope = rememberCoroutineScope()
-    
+
+    //Launched effect for possible events that can't be controlled elsewhere.
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
+            when (event) {
                 is AddEditNoteViewModel.UiEvent.ShowSnackbar -> {
+                    //Display the snackbar with a message.
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message
                     )
                 }
                 is AddEditNoteViewModel.UiEvent.SaveNote -> {
+                    //Go back to the notes screen after saving.
                     navController.navigateUp()
-
                 }
             }
         }
     }
 
     Scaffold(
+        //Create the FAB for saving the note.
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -91,6 +99,7 @@ fun AddEditNoteScreen(
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                //Show all possible note colors.
                 Note.noteColors.forEach { color ->
                     val colorInt = color.toArgb()
                     Box(
@@ -102,6 +111,7 @@ fun AddEditNoteScreen(
                             )
                             .clip(CircleShape)
                             .background(color)
+                            //Highlight the selected color.
                             .border(
                                 width = 3.dp,
                                 color = if (viewModel.noteColor.value == colorInt) {
@@ -111,6 +121,7 @@ fun AddEditNoteScreen(
                             )
                             .clickable {
                                 scope.launch {
+                                    //Transition nicely between the colors.
                                     noteBackgroundAnimatable.animateTo(
                                         targetValue = Color(colorInt),
                                         animationSpec = tween(
@@ -118,12 +129,14 @@ fun AddEditNoteScreen(
                                         )
                                     )
                                 }
+                                //Change the color saved in state.
                                 viewModel.onEvent(AddEditNoteEvent.ChangedColor(colorInt))
                             }
                     )
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
+            //Show the title and content fields.
             TransparentHintTextField(
                 text = noteTitle.text,
                 hint = noteTitle.hint,
@@ -137,7 +150,6 @@ fun AddEditNoteScreen(
                 singleLine = true,
                 textStyle = MaterialTheme.typography.h5
             )
-
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
                 text = noteContent.text,

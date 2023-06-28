@@ -5,9 +5,10 @@ import com.swhite.cleanarchitecturenotes.feature_note.domain.model.Note
 import com.swhite.cleanarchitecturenotes.feature_note.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 
+//Implementation for the notes repo, currently acting as a layer between the dao and the repo calls.
 class NoteRepositoryImpl(
     private val dao: NoteDao
-) :NoteRepository {
+) : NoteRepository {
 
     override fun getNotes(): Flow<List<Note>> {
         return dao.getNotes()

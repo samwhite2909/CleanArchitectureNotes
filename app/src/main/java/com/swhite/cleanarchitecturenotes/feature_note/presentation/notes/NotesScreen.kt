@@ -22,6 +22,7 @@ import com.swhite.cleanarchitecturenotes.feature_note.presentation.notes.compone
 import com.swhite.cleanarchitecturenotes.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
 
+//Notes screen composable.
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun NotesScreen(
@@ -33,6 +34,7 @@ fun NotesScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
+        //FAB for navigating to the add note screen.
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -56,6 +58,7 @@ fun NotesScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                //Shows the title of the screen and the filters.
                 Text(
                     text = "Your Notes",
                     style = MaterialTheme.typography.h4
@@ -87,19 +90,24 @@ fun NotesScreen(
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
+            //Shows the notes from the db inside of a lazy column/ recycler.
             LazyColumn(
-                modifier = Modifier.fillMaxSize()) {
+                modifier = Modifier.fillMaxSize()
+            ) {
                 items(state.notes) { note ->
                     NoteItem(
                         note = note,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
+                                //Clicking on a note will take you to the add note screen
+                                // with details of that note.
                                 navController.navigate(
                                     Screen.AddEditNoteScreen.route +
                                             "?noteId=${note.id}&noteColor=${note.color}"
                                 )
                             },
+                        //Deleting a note here will display a message and remove from the db.
                         onDeleteNote = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
@@ -107,7 +115,7 @@ fun NotesScreen(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )
-                                if(result == SnackbarResult.ActionPerformed) {
+                                if (result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
                             }

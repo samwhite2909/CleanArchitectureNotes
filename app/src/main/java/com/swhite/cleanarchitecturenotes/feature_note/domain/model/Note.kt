@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.swhite.cleanarchitecturenotes.ui.theme.*
 
+
+//Model class for notes.
 @Entity
 data class Note(
     val title: String,
@@ -12,9 +14,11 @@ data class Note(
     val color: Int,
     @PrimaryKey val id: Int? = null
 ) {
+    //List of colors available for notes.
     companion object {
         val noteColors = listOf(RedOrange, LightGreen, Violet, BabyBlue, RedPink)
     }
 }
 
-class InvalidNoteException(message: String): Exception (message)
+//Allows for an exception to be returned for incorrect notes.
+class InvalidNoteException(message: String) : Exception(message)

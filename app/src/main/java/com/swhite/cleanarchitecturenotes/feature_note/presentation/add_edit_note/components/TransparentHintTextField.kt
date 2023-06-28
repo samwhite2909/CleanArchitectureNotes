@@ -1,6 +1,5 @@
 package com.swhite.cleanarchitecturenotes.feature_note.presentation.add_edit_note.components
 
-import android.view.View.OnFocusChangeListener
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
@@ -12,6 +11,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 
+//Text input composable.
 @Composable
 fun TransparentHintTextField(
     text: String,
@@ -26,6 +26,7 @@ fun TransparentHintTextField(
     Box(
         modifier = modifier
     ) {
+        //Create the text field.
         BasicTextField(
             value = text,
             onValueChange = onValueChange,
@@ -36,7 +37,8 @@ fun TransparentHintTextField(
                     onFocusChange(it)
                 }
         )
-        if(isHintVisible) {
+        //Only show the hint if we should.
+        if (isHintVisible) {
             Text(
                 text = hint,
                 style = textStyle,

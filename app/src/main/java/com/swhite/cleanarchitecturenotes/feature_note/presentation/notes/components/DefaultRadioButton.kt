@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+//Radio button composable.
 @Composable
 fun DefaultRadioButton(
     text: String,
@@ -23,6 +24,7 @@ fun DefaultRadioButton(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        //Create a radio button.
         RadioButton(
             selected = selected, onClick = onSelect, colors = RadioButtonDefaults.colors(
                 selectedColor = MaterialTheme.colors.primary,
@@ -30,7 +32,9 @@ fun DefaultRadioButton(
             )
         )
         Spacer(
-            modifier = Modifier.width(8.dp))
+            modifier = Modifier.width(8.dp)
+        )
+        //Accompanying text for the button.
         Text(
             text = text,
             style = MaterialTheme.typography.body1
